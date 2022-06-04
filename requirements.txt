@@ -1,3 +1,4 @@
+python -m pip install --user --upgrade pip
 flask==1.1.2
 beautifulsoup4==4.6.3
 requests==2.20.1

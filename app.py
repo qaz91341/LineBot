@@ -58,7 +58,8 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_message)
     else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ /n " + message))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ"))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(message))
     # message = TextSendMessage(text=event.message.text)
     # line_bot_api.reply_message(event.reply_token,message)
 

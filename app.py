@@ -37,8 +37,15 @@ import re
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = event.message.text
+    reply_arr = []
     if re.match("你是誰", message):
         #回覆特定字
+        sticker_message = StickerSendMessage(
+            package_id='446',
+            sticker_id='1990'
+        )
+        reply_arr.append(sticker_message)
+        reply_arr.append(TextSendMessage("偷尼史塔克"))
         line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
     elif re.match("你要去哪裡",message):
         #回覆位置
@@ -48,17 +55,20 @@ def handle_message(event):
             latitude= 39.908874242716614,
             longitude= 116.39746996721439
         )
-        line_bot_api.reply_message(event.reply_token, location_message,TextSendMessage("去擋坦克"))
-        #line_bot_api.reply_message(event.reply_token,TextSendMessage("去擋坦克"))
+        reply_arr.append(location_message)
+        reply_arr.append(TextSendMessage("去擋坦克"))
+        line_bot_api.reply_message(event.reply_token,reply_arr)
     elif re.match('我誰',message):
         #回覆圖片
         image_message = ImageSendMessage(
         original_content_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png',
         preview_image_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png'
         )
-        line_bot_api.reply_message(event.reply_token, image_message)
+        reply_arr.append(image_message)
+        reply_arr.append(TextSendMessage("我誰~"))
+        line_bot_api.reply_message(event.reply_token, reply_arr)
     else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n " + message))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n" + message))
     # message = TextSendMessage(text=event.message.text)
     # line_bot_api.reply_message(event.reply_token,message)
 

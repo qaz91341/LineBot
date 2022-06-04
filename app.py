@@ -46,7 +46,7 @@ def handle_message(event):
         )
         reply_arr.append(sticker_message)
         reply_arr.append(TextSendMessage("偷尼史塔克"))
-        line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
+        line_bot_api.reply_message(event.reply_token,reply_arr)
     elif re.match("你要去哪裡",message):
         #回覆位置
         location_message = LocationSendMessage(

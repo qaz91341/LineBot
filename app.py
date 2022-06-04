@@ -12,6 +12,7 @@ line_bot_api = LineBotApi('ZN8JgdTk20zbNP0KPdRWYM2CPdxEkCmZZQQy5nhGgC1XWyOHKfVK9
 # 必須放上自己的Channel Secret
 handler = WebhookHandler('531e4f66f61dd1967850544943768a1e')
 
+#push成功後會傳送message給此ID的帳號
 line_bot_api.push_message('Ued071ac7750a89300583606813ec35eb', TextSendMessage(text='準備完成'))
 
 # 監聽所有來自 /callback 的 Post Request
@@ -32,11 +33,15 @@ def callback():
 
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
+import re
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token,message)
-
+    if re.match("你是誰", message):
+        line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
+    else:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(message))
+    # message = TextSendMessage(text=event.message.text)
+    # line_bot_api.reply_message(event.reply_token,message)
 
 #主程式
 import os 

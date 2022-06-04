@@ -48,8 +48,8 @@ def handle_message(event):
             latitude= 39.908874242716614,
             longitude= 116.39746996721439
         )
-        line_bot_api.reply_message(event.reply_token, location_message)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage("去擋坦克"))
+        line_bot_api.reply_message(event.reply_token, location_message,TextSendMessage("去擋坦克"))
+        #line_bot_api.reply_message(event.reply_token,TextSendMessage("去擋坦克"))
     elif re.match('我誰',message):
         #回覆圖片
         image_message = ImageSendMessage(
@@ -58,8 +58,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_message)
     else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ"))
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(message))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n " + message))
     # message = TextSendMessage(text=event.message.text)
     # line_bot_api.reply_message(event.reply_token,message)
 

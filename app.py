@@ -7,7 +7,7 @@ from linebot.models import *
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
-line_bot_api = LineBotApi("ZN8JgdTk20zbNP0KPdRWYM2CPdxEkCmZZQQy5nhGgC1XWyOHKfVK9Rr3ryksfhMhRKv8PYeUsL6LlsFZHEdwOPt3mDiCSw8kBeUJdxkIzn4o7xpm3ttMqH3IMU++qDnsSkzZoN3fRep1XcduexKw0gdB04t89/1O/w1cDnyilFU=")
+line_bot_api = LineBotApi('ZN8JgdTk20zbNP0KPdRWYM2CPdxEkCmZZQQy5nhGgC1XWyOHKfVK9Rr3ryksfhMhRKv8PYeUsL6LlsFZHEdwOPt3mDiCSw8kBeUJdxkIzn4o7xpm3ttMqH3IMU++qDnsSkzZoN3fRep1XcduexKw0gdB04t89/1O/w1cDnyilFU=')
 
 # 必須放上自己的Channel Secret
 handler = WebhookHandler('531e4f66f61dd1967850544943768a1e')
@@ -17,14 +17,15 @@ line_bot_api.push_message('Ued071ac7750a89300583606813ec35eb', TextSendMessage(t
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
-# get X-Line-Signature header value
+    # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
     # handle webhook body
-    try:handler.handle(body, signature)
+    try:
+        handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
     return 'OK'

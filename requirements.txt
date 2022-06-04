@@ -1,5 +1,4 @@
 flask==1.1.2
-numpy==1.19.5
 beautifulsoup4==4.6.3
 requests==2.20.1
 scipy
@@ -10,6 +9,7 @@ datetime
 matplotlib
 gspread==4.0.1
 oauth2client==4.1.3
+numpy==1.19.5
 pyimgur
 mpl_finance
 arrow

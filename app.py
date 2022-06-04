@@ -36,6 +36,7 @@ def callback():
 import re
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    message = TextSendMessage(text=event.message.text)
     if re.match("你是誰", message):
         line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
     else:

@@ -40,37 +40,52 @@ def handle_message(event):
     reply_arr = []
     if re.match("你是誰", message):
         #回覆特定字
-        sticker_message = StickerSendMessage(
-            package_id='446',
-            sticker_id='1990'
-        )
-        reply_arr.append(sticker_message)
-        reply_arr.append(TextSendMessage("偷尼史塔克"))
+        reply_arr = reply_name()
         line_bot_api.reply_message(event.reply_token,reply_arr)
     elif re.match("你要去哪裡",message):
         #回覆位置
-        location_message = LocationSendMessage(
-            title= "天安門",
-            address= "北京市东城区 邮政编码: 100051",
-            latitude= 39.908874242716614,
-            longitude= 116.39746996721439
-        )
-        reply_arr.append(location_message)
-        reply_arr.append(TextSendMessage("去擋坦克"))
+        reply_arr = reply_place()
         line_bot_api.reply_message(event.reply_token,reply_arr)
     elif re.match('我誰',message):
         #回覆圖片
-        image_message = ImageSendMessage(
-        original_content_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png',
-        preview_image_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png'
-        )
-        reply_arr.append(image_message)
-        reply_arr.append(TextSendMessage("我誰~"))
+        reply_arr = reply_who()
         line_bot_api.reply_message(event.reply_token, reply_arr)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n" + message))
     # message = TextSendMessage(text=event.message.text)
     # line_bot_api.reply_message(event.reply_token,message)
+
+def reply_name():
+    reply_arr =[]
+    sticker_message = StickerSendMessage(
+            package_id='446',
+            sticker_id='1990'
+        )
+    reply_arr.append(sticker_message)
+    reply_arr.append(TextSendMessage("偷尼史塔克"))
+    return reply_arr
+
+def reply_place():
+    reply_arr =[]
+    location_message = LocationSendMessage(
+        title= "天安門",
+        address= "北京市东城区 邮政编码: 100051",
+        latitude= 39.908874242716614,
+        longitude= 116.39746996721439
+    )
+    reply_arr.append(location_message)
+    reply_arr.append(TextSendMessage("去擋坦克"))
+    return reply_arr
+
+def reply_who():
+    reply_arr =[]
+    image_message = ImageSendMessage(
+    original_content_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png',
+    preview_image_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png'
+    )
+    reply_arr.append(image_message)
+    reply_arr.append(TextSendMessage("我誰~"))
+    return reply_arr
 
 #主程式
 import os 

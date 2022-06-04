@@ -38,8 +38,10 @@ import re
 def handle_message(event):
     message = event.message.text
     if re.match("你是誰", message):
+        #回覆特定字
         line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
     elif re.match("你要去哪裡",message):
+        #回覆位置
         location_message = LocationSendMessage(
             title= "高雄市壽山動物園",
             address= "高雄市鼓山區萬壽路350號",
@@ -47,8 +49,14 @@ def handle_message(event):
             longitude= 120.27545572162684
         )
         line_bot_api.reply_message(event.reply_token, location_message)
+    elif re.match('我誰',message):
+        #回覆圖片
+        image_message = ImageSendMessage(
+        original_content_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png',
+        preview_image_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png'
+        )
     else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(message))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ /n " + message))
     # message = TextSendMessage(text=event.message.text)
     # line_bot_api.reply_message(event.reply_token,message)
 

@@ -39,6 +39,14 @@ def handle_message(event):
     message = event.message.text
     if re.match("你是誰", message):
         line_bot_api.reply_message(event.reply_token,TextSendMessage("偷尼史塔克"))
+    elif re.match("你要去哪裡",message):
+        location_message = LocationSendMessage(
+            title= "高雄市壽山動物園",
+            address= "高雄市鼓山區萬壽路350號",
+            latitude= 22.636113729166258,
+            longitude= 120.27545572162684
+        )
+        line_bot_api.reply_message(event.reply_token, location_message)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(message))
     # message = TextSendMessage(text=event.message.text)

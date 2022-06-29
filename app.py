@@ -107,8 +107,8 @@ def climb_ptt():
     data = soup.select("div.r-ent")
     reply_arr =[]
     reply_message = ""
+    i = 0;
     for sample in data :
-        reply_message = ""
         ###解析標題 / 時間 / 推文 / 連結
         #標題
         title = sample.select("div.title")[0].text.strip()
@@ -140,7 +140,10 @@ def climb_ptt():
         #print("推文數量 :", push_num)
         reply_message = "推文數量 :" + push_num + "\n"
 
-        reply_arr.append(TextSendMessage(reply_message))
+        if i/3==0 or i == len(data)-1:
+            reply_arr.append(TextSendMessage(reply_message))
+            reply_message = ""
+        i = i + 1
 
     return reply_arr
 

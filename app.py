@@ -140,7 +140,7 @@ def climb_ptt():
         #print("推文數量 :", push_num)
         reply_message = "推文數量 :" + push_num + "\n"
 
-        if i/3==0 or i == len(data)-1:
+        if i%3==0 or i == len(data)-1:
             reply_arr.append(TextSendMessage(reply_message))
             reply_message = ""
         i = i + 1

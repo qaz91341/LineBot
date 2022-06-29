@@ -3,6 +3,8 @@ from flask import Flask, request
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+from bs4 import BeautifulSoup as bs
+import requests
 
 app = Flask(__name__)
 
@@ -50,6 +52,10 @@ def handle_message(event):
         #回覆圖片
         reply_arr = reply_who()
         line_bot_api.reply_message(event.reply_token, reply_arr)
+    elif re.match('ptt',message):
+        #回覆圖片
+        reply_arr = climb_ptt()
+        line_bot_api.reply_message(event.reply_token, reply_arr)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n" + message))
     # message = TextSendMessage(text=event.message.text)
@@ -86,6 +92,54 @@ def reply_who():
     reply_arr.append(image_message)
     reply_arr.append(TextSendMessage("我誰~"))
     return reply_arr
+
+def climb_ptt():
+    ###發request 取得原始碼
+    url = "https://www.ptt.cc/bbs/Stock/index.html"
+    headers = {
+        "user-agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.53 Safari/537.36 Edg/103.0.1264.37"
+    }
+
+    res = requests.get(url, headers = headers)
+    #print(res.text)
+    
+    reply_message = ""
+    for sample in data :
+        ###解析標題 / 時間 / 推文 / 連結
+        #標題
+        title = sample.select("div.title")[0].text.strip()
+        #print("-"*60)
+        reply_message = "----------------------------- \n"
+        #print ("標題 :",title)
+        reply_message = "標題 :" + title + "\n"
+
+        #連結
+        raw_link = sample.select("div.title a")[0]["href"]
+        domain_name = "https://www.ptt.cc"
+        link = domain_name + raw_link
+        #print("連結: ", link)
+        reply_message = "連結 :" + link + "\n"
+
+        
+        if "公告" in title or "閒聊" in title: 
+            continue
+        #時間
+        date = sample.select("div.date")[0].text.strip()
+        #print("時間 :",date)
+        reply_message = "時間 :" + date + "\n"
+
+        #推文數量
+        if len(sample.select("span.hl")) == 0 :
+            continue
+        push_num = sample.select("span.hl")[0].text
+        
+        #print("推文數量 :", push_num)
+        reply_message = "推文數量 :" + push_num + "\n"
+
+    reply_arr =[]
+    reply_arr.append(TextSendMessage(reply_message))
+    return reply_arr
+
 
 #主程式
 import os 

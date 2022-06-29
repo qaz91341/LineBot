@@ -102,7 +102,7 @@ def climb_ptt():
 
     res = requests.get(url, headers = headers)
     #print(res.text)
-    soup = bs(res.text,features="xml")
+    soup = bs(res.text,"lxml")
 
     data = soup.select("div.r-ent")
     reply_arr =[]
@@ -148,24 +148,24 @@ def climb_ptt():
 
     title = sample.select("div.title")[0].text.strip()
     #print("-"*60)
-    reply_message = "----------------------------- \n"
+    reply_message += "----------------------------- \n"
     #print ("標題 :",title)
-    reply_message = "標題 :" + title + "\n"
+    reply_message += "標題 :" + title + "\n"
 
     raw_link = sample.select("div.title a")[0]["href"]
     domain_name = "https://www.ptt.cc"
     link = domain_name + raw_link
     #print("連結: ", link)
-    reply_message = "連結 :" + link + "\n"
+    reply_message += "連結 :" + link + "\n"
 
     date = sample.select("div.date")[0].text.strip()
     #print("時間 :",date)
-    reply_message = "時間 :" + date + "\n"
+    reply_message += "時間 :" + date + "\n"
 
     push_num = sample.select("span.hl")[0].text
     
     #print("推文數量 :", push_num)
-    reply_message = "推文數量 :" + push_num + "\n"
+    reply_message += "推文數量 :" + push_num + "\n"
     reply_arr.append(TextSendMessage(reply_message))
 
     return reply_arr

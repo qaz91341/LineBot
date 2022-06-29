@@ -108,42 +108,64 @@ def climb_ptt():
     reply_arr =[]
     reply_message = ""
     i = 0;
-    for sample in data :
-        ###解析標題 / 時間 / 推文 / 連結
-        #標題
-        title = sample.select("div.title")[0].text.strip()
-        #print("-"*60)
-        reply_message = "----------------------------- \n"
-        #print ("標題 :",title)
-        reply_message = "標題 :" + title + "\n"
+    # for sample in data :
+    #     ###解析標題 / 時間 / 推文 / 連結
+    #     #標題
+    #     title = sample.select("div.title")[0].text.strip()
+    #     #print("-"*60)
+    #     reply_message = "----------------------------- \n"
+    #     #print ("標題 :",title)
+    #     reply_message = "標題 :" + title + "\n"
 
-        #連結
-        raw_link = sample.select("div.title a")[0]["href"]
-        domain_name = "https://www.ptt.cc"
-        link = domain_name + raw_link
-        #print("連結: ", link)
-        reply_message = "連結 :" + link + "\n"
+    #     #連結
+    #     raw_link = sample.select("div.title a")[0]["href"]
+    #     domain_name = "https://www.ptt.cc"
+    #     link = domain_name + raw_link
+    #     #print("連結: ", link)
+    #     reply_message = "連結 :" + link + "\n"
 
         
-        if "公告" in title or "閒聊" in title: 
-            continue
-        #時間
-        date = sample.select("div.date")[0].text.strip()
-        #print("時間 :",date)
-        reply_message = "時間 :" + date + "\n"
+    #     if "公告" in title or "閒聊" in title: 
+    #         continue
+    #     #時間
+    #     date = sample.select("div.date")[0].text.strip()
+    #     #print("時間 :",date)
+    #     reply_message = "時間 :" + date + "\n"
 
-        #推文數量
-        if len(sample.select("span.hl")) == 0 :
-            continue
-        push_num = sample.select("span.hl")[0].text
+    #     #推文數量
+    #     if len(sample.select("span.hl")) == 0 :
+    #         continue
+    #     push_num = sample.select("span.hl")[0].text
         
-        #print("推文數量 :", push_num)
-        reply_message = "推文數量 :" + push_num + "\n"
+    #     #print("推文數量 :", push_num)
+    #     reply_message = "推文數量 :" + push_num + "\n"
 
-        if i%3==0 or i == len(data)-1:
-            reply_arr.append(TextSendMessage(reply_message))
-            reply_message = ""
-        i = i + 1
+    #     if i%3==0 or i == len(data)-1:
+    #         reply_arr.append(TextSendMessage(reply_message))
+    #         reply_message = ""
+    #     i = i + 1
+
+    title = sample.select("div.title")[0].text.strip()
+    #print("-"*60)
+    reply_message = "----------------------------- \n"
+    #print ("標題 :",title)
+    reply_message = "標題 :" + title + "\n"
+
+    raw_link = sample.select("div.title a")[0]["href"]
+    domain_name = "https://www.ptt.cc"
+    link = domain_name + raw_link
+    #print("連結: ", link)
+    reply_message = "連結 :" + link + "\n"
+
+    date = sample.select("div.date")[0].text.strip()
+    #print("時間 :",date)
+    reply_message = "時間 :" + date + "\n"
+
+    push_num = sample.select("span.hl")[0].text
+    
+    #print("推文數量 :", push_num)
+    reply_message = "推文數量 :" + push_num + "\n"
+    reply_arr.append(TextSendMessage(reply_message))
 
     return reply_arr
 

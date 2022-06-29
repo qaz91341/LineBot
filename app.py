@@ -48,11 +48,11 @@ def handle_message(event):
         #回覆位置
         reply_arr = reply_place()
         line_bot_api.reply_message(event.reply_token,reply_arr)
-    elif re.match('我誰',message):
+    elif re.match("我誰",message):
         #回覆圖片
         reply_arr = reply_who()
         line_bot_api.reply_message(event.reply_token, reply_arr)
-    elif re.match('ptt',message):
+    elif re.match("ptt",message):
         #回覆圖片
         reply_arr = climb_ptt()
         line_bot_api.reply_message(event.reply_token, reply_arr)
@@ -86,11 +86,11 @@ def reply_place():
 def reply_who():
     reply_arr =[]
     image_message = ImageSendMessage(
-    original_content_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png',
-    preview_image_url='https://media.nownews.com/nn_media/thumbnail/2019/10/1570089924-27a9b9c9d7facd3422fe4610dd8ebe42-696x386.png'
+    original_content_url='https://i.imgur.com/j6Q0QuXl.jpg',
+    preview_image_url='https://i.imgur.com/j6Q0QuXl.jpgg'
     )
     reply_arr.append(image_message)
-    reply_arr.append(TextSendMessage("我誰~"))
+    reply_arr.append(TextSendMessage("努股誰永?"))
     return reply_arr
 
 def climb_ptt():
@@ -102,7 +102,7 @@ def climb_ptt():
 
     res = requests.get(url, headers = headers)
     #print(res.text)
-    soup = bs(res.text,'lxml')
+    soup = bs(res.text,features="xml")
 
     data = soup.select("div.r-ent")
     reply_message = ""

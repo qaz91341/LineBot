@@ -102,7 +102,9 @@ def climb_ptt():
 
     res = requests.get(url, headers = headers)
     #print(res.text)
-    
+    soup = bs(res.text,'lxml')
+
+    data = soup.select("div.r-ent")
     reply_message = ""
     for sample in data :
         ###解析標題 / 時間 / 推文 / 連結

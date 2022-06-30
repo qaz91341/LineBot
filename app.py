@@ -106,12 +106,15 @@ def climb_ptt():
     res = requests.get(url, headers = headers)
     #print(res.text)
     soup = bs(res.text,features="xml")
-
     data = soup.select("div.r-ent")
-    reply_arr =[]
+
+    reply_arr = []
+    reply_arr.append(TextSendMessage("------------------------------------------------------------\n"+"標題 :[新聞] 瑞士科學期刊刊登高端疫苗「保護力84%」\n" +"連結: https://www.ptt.cc/bbs/Stock/M.1656595430.A.053.html \n " +"時間 :6/30 \n " +"推文數量 :47 \n" ))
+    reply_arr.append(TextSendMessage("121312333333333333333333333333333333333333333"))
     reply_message = ""
     i = 0
     for sample in data :
+        
         title = sample.select("div.title")[0].text.strip()
         if "刪除" in title: 
             continue

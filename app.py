@@ -108,8 +108,7 @@ def climb_ptt():
     data = soup.select("div.r-ent")
     reply_arr =[]
     reply_message = ""
-    i = 0;
-
+    i = 0
     for sample in data :
         i = i+1
         if i%5==0 or i == len(data):
@@ -123,14 +122,10 @@ def climb_ptt():
         reply_message += "標題 :" + title + "\n"
 
         #連結
-        try:                      # 使用 try，測試內容是否正確
-            raw_link = sample.select("div.title a")[0]["href"]
-            domain_name = "https://www.ptt.cc"
-            link = domain_name + raw_link
-            reply_message += "連結: " + link + "\n"
-            logging.info(raw_link)
-        except :                   # 如果 try 的內容發生錯誤，就執行 except 裡的內容
-            logging.info(i)
+        raw_link = sample.select("div.title a")[0]["href"]
+        domain_name = "https://www.ptt.cc"
+        link = domain_name + raw_link
+        reply_message += "連結: " + link + "\n"
         
 
         

@@ -57,7 +57,7 @@ def handle_message(event):
     elif re.match("ptt",message):
         #回覆圖片
         reply_arr = climb_ptt()
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(reply_arr))
+        line_bot_api.reply_message(event.reply_token, reply_arr)
         
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n" + message))
@@ -116,11 +116,13 @@ def climb_ptt():
         if "刪除" in title: 
             continue
         i = i+1
-        if i%5==0 or i == len(data):
-            if len(reply_arr) < 5:
-                reply_arr.append(reply_message)
-                reply_message = str()
+        # if i%5==0 or i == len(data):
+        #     if len(reply_arr) < 5:
+        #         reply_arr.append(TextSendMessage(reply_message))
+        #         reply_message = str()
 
+        if i == 3:
+            break
 
 
         
@@ -148,6 +150,7 @@ def climb_ptt():
         
         reply_message += "推文數量 :" + push_num + "\n"
 
+    reply_arr.append(TextSendMessage(reply_message))
 
     return reply_arr
 

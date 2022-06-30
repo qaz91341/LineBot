@@ -109,8 +109,6 @@ def climb_ptt():
     data = soup.select("div.r-ent")
 
     reply_arr = []
-    reply_arr.append(TextSendMessage("------------------------------------------------------------\n"+"標題 :[新聞] 瑞士科學期刊刊登高端疫苗「保護力84%」\n" +"連結: https://www.ptt.cc/bbs/Stock/M.1656595430.A.053.html \n " +"時間 :6/30 \n " +"推文數量 :47 \n" ))
-    reply_arr.append(TextSendMessage("121312333333333333333333333333333333333333333"))
     reply_message = ""
     i = 0
     for sample in data :
@@ -119,24 +117,19 @@ def climb_ptt():
         if "刪除" in title: 
             continue
         i = i+1
-        # if i%5==0 or i == len(data):
-        #     if len(reply_arr) < 5:
-        #         reply_arr.append(TextSendMessage(reply_message))
-        #         reply_message = str()
-
-        if i == 3:
-            break
-
-
+        if i%5==0 or i == len(data):
+            if len(reply_arr) < 5:
+                reply_arr.append(TextSendMessage(reply_message))
+                reply_message = ""
         
         reply_message += "-" * 60 
-        reply_message += "標題 :" + title 
+        reply_message += "標題 :" + title + " \n "
 
         #連結
         raw_link = sample.select("div.title a")[0]["href"]
         domain_name = "https://www.ptt.cc"
         link = domain_name + raw_link
-        reply_message += "連結: " + link 
+        reply_message += "連結: " + link + " \n "
         
 
         
@@ -144,16 +137,14 @@ def climb_ptt():
             continue
         #時間
         date = sample.select("div.date")[0].text.strip()
-        reply_message += "時間 :" + date 
+        reply_message += "時間 :" + date + " \n "
 
         #推文數量
         if len(sample.select("span.hl")) == 0 :
             continue
         push_num = sample.select("span.hl")[0].text
         
-        reply_message += "推文數量 :" + push_num
-
-    # reply_arr.append(TextSendMessage(reply_message))
+        reply_message += "推文數量 :" + push_num + " \n "
 
     return reply_arr
 

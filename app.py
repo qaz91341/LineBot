@@ -5,6 +5,7 @@ from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 from bs4 import BeautifulSoup as bs
 import requests
+import logging #用來留log
 
 app = Flask(__name__)
 
@@ -116,16 +117,22 @@ def climb_ptt():
             reply_message = ""
 
 
-    
+
         title = sample.select("div.title")[0].text.strip()
         reply_message += "-" * 60 + "\n"
         reply_message += "標題 :" + title + "\n"
 
         #連結
-        raw_link = sample.select("div.title a")[0]["href"]
-        domain_name = "https://www.ptt.cc"
-        link = domain_name + raw_link
-        reply_message += "連結: " + link + "\n"
+        try:                      # 使用 try，測試內容是否正確
+            raw_link = sample.select("div.title a")[0]["href"]
+            domain_name = "https://www.ptt.cc"
+            link = domain_name + raw_link
+            reply_message += "連結: " + link + "\n"
+            logging.info(raw_link)
+        except e:                   # 如果 try 的內容發生錯誤，就執行 except 裡的內容
+            logging.debug(e)
+            logging.info(i)
+        
 
         
         if "公告" in title or "閒聊" in title: 

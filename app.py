@@ -118,12 +118,13 @@ def climb_ptt():
         if "刪除" in title: 
             continue
         i = i+1
-        if i%5==0 or i == len(data):
-            if len(reply_arr) < 5:
-                reply_arr.append(TextSendMessage(reply_message))
-                reply_message = ""
+        # if i%5==0 or i == len(data):
+        #     if len(reply_arr) < 5:
+        #         reply_arr.append(TextSendMessage(reply_message))
+        #         reply_message = ""
 
-
+        if i > 5:
+            break
 
         
         reply_message += "-" * 60 + "\n"
@@ -150,6 +151,7 @@ def climb_ptt():
         
         reply_message += "推文數量 :" + push_num + "\n"
 
+    reply_arr.append(TextSendMessage(reply_message))
 
     return reply_arr
 

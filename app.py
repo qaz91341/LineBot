@@ -116,7 +116,7 @@ def climb_ptt():
             continue
         i = i+1
         if i%5==0 or i == len(data):
-            if len(reply_arr) < 3:
+            if len(reply_arr) < 2:
                 reply_arr.append(TextSendMessage(reply_message))
                 reply_message = ""
 

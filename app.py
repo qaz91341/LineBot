@@ -57,8 +57,8 @@ def handle_message(event):
     elif re.match("ptt",message):
         #回覆圖片
         reply_arr = climb_ptt()
-        for msg in reply_arr:
-            logging.info("------------------\n" + msg)
+        # for msg in reply_arr:
+        #     logging.info("------------------\n" + msg)
         line_bot_api.reply_message(event.reply_token, reply_arr)
         
     else:

@@ -110,6 +110,9 @@ def climb_ptt():
     reply_message = ""
     i = 0
     for sample in data :
+        title = sample.select("div.title")[0].text.strip()
+        if "刪除" in title: 
+            continue
         i = i+1
         if i%5==0 or i == len(data):
             reply_arr.append(reply_message)
@@ -117,7 +120,7 @@ def climb_ptt():
 
 
 
-        title = sample.select("div.title")[0].text.strip()
+        
         reply_message += "-" * 60 + "\n"
         reply_message += "標題 :" + title + "\n"
 

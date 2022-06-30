@@ -6,6 +6,7 @@ from linebot.models import *
 from bs4 import BeautifulSoup as bs
 import requests
 import logging #用來留log
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -116,7 +117,7 @@ def climb_ptt():
             continue
         i = i+1
         if i%5==0 or i == len(data):
-            if len(reply_arr) < 2:
+            if len(reply_arr) < 5:
                 reply_arr.append(TextSendMessage(reply_message))
                 reply_message = ""
 

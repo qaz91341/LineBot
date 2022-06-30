@@ -126,14 +126,14 @@ def climb_ptt():
 
 
         
-        reply_message += "-" * 60 + "\n"
-        reply_message += "標題 :" + title + "\n"
+        reply_message += "-" * 60 
+        reply_message += "標題 :" + title 
 
         #連結
         raw_link = sample.select("div.title a")[0]["href"]
         domain_name = "https://www.ptt.cc"
         link = domain_name + raw_link
-        reply_message += "連結: " + link + "\n"
+        reply_message += "連結: " + link 
         
 
         
@@ -141,14 +141,14 @@ def climb_ptt():
             continue
         #時間
         date = sample.select("div.date")[0].text.strip()
-        reply_message += "時間 :" + date + "\n"
+        reply_message += "時間 :" + date 
 
         #推文數量
         if len(sample.select("span.hl")) == 0 :
             continue
         push_num = sample.select("span.hl")[0].text
         
-        reply_message += "推文數量 :" + push_num + "\n"
+        reply_message += "推文數量 :" + push_num
 
     reply_arr.append(TextSendMessage(reply_message))
 

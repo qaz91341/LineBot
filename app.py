@@ -108,17 +108,17 @@ def climb_ptt():
     reply_arr =[]
     reply_message = ""
     i = 0;
-    sample = data[0]
+
     for sample in data :
         i = i+1
         if i%5==0 or i == len(data):
-            reply_arr.append(message)
+            reply_arr.append(reply_message)
             reply_message = ""
 
 
     
         title = sample.select("div.title")[0].text.strip()
-        reply_message += "-"*60 + "\n"
+        reply_message += "-" * 60 + "\n"
         reply_message += "標題 :" + title + "\n"
 
         #連結

@@ -103,7 +103,7 @@ def climb_ptt():
 
     res = requests.get(url, headers = headers)
     #print(res.text)
-    soup = bs(res.text,"lxml")
+    soup = bs(res.text,features="xml")
 
     data = soup.select("div.r-ent")
     reply_arr =[]
@@ -115,7 +115,7 @@ def climb_ptt():
             continue
         i = i+1
         if i%5==0 or i == len(data):
-            reply_arr.append(reply_message)
+            reply_arr.append(TextSendMessage(reply_message))
             reply_message = ""
 
 

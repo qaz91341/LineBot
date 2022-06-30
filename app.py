@@ -57,7 +57,7 @@ def handle_message(event):
         #回覆圖片
         reply_arr = climb_ptt()
         line_bot_api.reply_message(event.reply_token, reply_arr)
-        print(reply_arr)
+        logging.info(reply_arr)
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage("沒對到我的特定字 我只能跟著你回覆 ㄏㄏ \n" + message))
     # message = TextSendMessage(text=event.message.text)

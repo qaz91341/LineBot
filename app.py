@@ -153,7 +153,7 @@ def climb_ptt():
         
         reply_message += "推文數量 :" + push_num
 
-    reply_arr.append(TextSendMessage(reply_message))
+    # reply_arr.append(TextSendMessage(reply_message))
 
     return reply_arr
 

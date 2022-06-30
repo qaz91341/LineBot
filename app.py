@@ -129,8 +129,7 @@ def climb_ptt():
             link = domain_name + raw_link
             reply_message += "連結: " + link + "\n"
             logging.info(raw_link)
-        except e:                   # 如果 try 的內容發生錯誤，就執行 except 裡的內容
-            logging.debug(e)
+        except :                   # 如果 try 的內容發生錯誤，就執行 except 裡的內容
             logging.info(i)
         
 

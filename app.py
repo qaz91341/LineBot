@@ -11,10 +11,10 @@ logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
-line_bot_api = LineBotApi('ZN8JgdTk20zbNP0KPdRWYM2CPdxEkCmZZQQy5nhGgC1XWyOHKfVK9Rr3ryksfhMhRKv8PYeUsL6LlsFZHEdwOPt3mDiCSw8kBeUJdxkIzn4o7xpm3ttMqH3IMU++qDnsSkzZoN3fRep1XcduexKw0gdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('TEST')
 
 # 必須放上自己的Channel Secret
-handler = WebhookHandler('531e4f66f61dd1967850544943768a1e')
+handler = WebhookHandler('TEST')
 
 #push成功後會傳送message給此ID的帳號
 line_bot_api.push_message('Ued071ac7750a89300583606813ec35eb', TextSendMessage(text='準備完成'))
